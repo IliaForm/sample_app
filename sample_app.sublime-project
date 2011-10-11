@@ -3,6 +3,9 @@
 	[
 		{
 			"path": "/home/ilia/sample_app"
+		},
+		{
+			"path": "/home/ilia/ce"
 		}
 	]
 }
