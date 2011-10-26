@@ -9,7 +9,7 @@ describe PagesController do
       response.should be_success
     end
 
-    it "should be rite title" do
+    it "should be write title" do
       get 'home'
       response.should have_selector "title", :content => "Ruby on Rails Tutorial Sample App | Home"
     end
@@ -21,7 +21,7 @@ describe PagesController do
       response.should be_success
     end
 
-    it "should be rite title" do
+    it "should be write title" do
       get 'contact'
       response.should have_selector "title", :content => "Ruby on Rails Tutorial Sample App | Contact"
     end
@@ -33,7 +33,7 @@ describe PagesController do
       response.should be_success
     end
 
-    it "should be rite title" do
+    it "should be write title" do
       get 'about'
       response.should have_selector "title", :content => "Ruby on Rails Tutorial Sample App | About"
     end
