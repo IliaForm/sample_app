@@ -9,6 +9,12 @@
 		},
 		{
 			"path": "/home/ilia/example_app"
+		},
+		{
+			"path": "/home/ilia/upanel"
+		},
+		{
+			"path": "/home/ilia/ce-meta"
 		}
 	]
 }
