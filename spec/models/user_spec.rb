@@ -14,7 +14,12 @@ require 'spec_helper'
 describe User do
   
   before :each do 
-  	@attr = { name: "example", email: "ex@mail.com"}
+  	@attr = { 
+	  	name: "example", 
+	  	email: "ex@mail.com",
+	    password: "qwertyqw",
+	    password_confirmation: "qwertyqw"
+	}
   end
 
   it 'should create user with valid attricutes' do
@@ -65,5 +70,56 @@ describe User do
     user_with_duplicate_email = User.new(@attr)
     user_with_duplicate_email.should_not be_valid
   end
+
+  describe 'password' do
+
+  	it 'should match password_confirmation' do
+  		user = User.new(@attr.merge(password_confirmation: "snsfgjryn"))
+  		user.should_not be_valid
+    end
+
+    it 'should reject user with short password' do
+    	user = User.new(@attr.merge(password: "qazxswe",password_confirmation: "qazxswe"))
+  		user.should_not be_valid
+    end
+
+    it 'should reject user with long password' do
+        long = 'a'*51
+    	user = User.new(@attr.merge(password: long, password_confirmation: long))
+    	user.should_not be_valid
+    end
+  end
+
+  describe 'encrypted password' do
+
+  	before :each do
+  		@user =User.create!(@attr)
+    end
+   
+    it 'should respond to encrypted_password' do
+    	@user.should respond_to(:encrypted_password)
+    end
+
+    it 'should set the encrypted_passowrd' do
+    	@user.encrypted_password.should_not be_blank
+    end
+
+     describe 'has_password_method' do
+
+        it 'should return true if password match' do
+        	@user.has_password? (@attr[:password]).should be_true
+        end
+
+        it 'should return false if password does not match' do
+        	@user.has_password? ('invalid').should be_false
+        end
+     end
+
+
+  end
+
+ 
+
+
  
 end
