@@ -107,12 +107,30 @@ describe User do
      describe 'has_password_method' do
 
         it 'should return true if password match' do
-        	@user.has_password? (@attr[:password]).should be_true
+        	@user.has_password?(@attr[:password]).should be_true
         end
 
         it 'should return false if password does not match' do
-        	@user.has_password? ('invalid').should be_false
+        	@user.has_password?('invalid').should be_false
         end
+     end
+
+     describe 'authenticate method' do
+
+     	it 'should return nil if no user with such email' do
+     		wrong_user = User.authenticate('someemail@com.ru', @attr[:password])
+     		wrong_user.should be_nil
+     	end
+
+     	it 'should return nil if no user with such password' do
+     		wrong_user = User.authenticate(@attr[:email], '123321123')
+     		wrong_user.should be_nil
+     	end
+
+     	it 'should return user' do
+     		user = User.authenticate(@attr[:email], @attr[:password])
+     		user.should == @user
+     	end
      end
 
 

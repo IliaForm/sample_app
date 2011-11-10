@@ -7,6 +7,8 @@ gem 'rails', '3.0.9'
 
 gem 'mysql2', '~> 0.2.5'
 
+gem 'gravatar_image_tag', '1.0.0.pre2'
+
 group :development do
   gem 'rspec-rails'
   gem 'annotate'
@@ -15,6 +17,7 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'webrat'
+  gem 'factory_girl_rails', '1.0'
 end
 
 # Use unicorn as the web server
