@@ -46,7 +46,54 @@ describe UsersController do
       response.should have_selector("h1>img", :class => "gravatar")
     end
   end
-          	
 
+  describe 'POST create' do
 
+  	describe 'fail' do
+
+  	before :each do
+  		@attr ={name: '', email: '', password: '', password_confirmation: ''}
+    end
+
+    it 'should not change count Users' do
+    	lambda do
+    		post :create, :user => @attr
+    	end.should_not change(User, :count)
+    end
+
+    it 'should render new' do
+    	post :create, :user => @attr
+    	response.should render_template('users/new')
+    end
+
+    it 'should have title' do
+    	post :create, :user => @attr
+    	response.should have_selector("title", :content => "Sign up")
+    end
+    end
+
+    describe 'success' do
+
+    	before :each do
+  		  @attr ={name: 'example user', email: 'example@mail.con', 
+	  		    password: '12345678', password_confirmation: '12345678'}
+        end
+        
+        it 'should ctore user' do
+         lambda do
+    	  	post :create, :user => @attr
+    	 end.should change(User, :count).by(1)
+        end
+
+    	it 'should redirect users page' do
+    		post :create, :user => @attr
+    		response.should redirect_to(user_path(assigns(:user)))
+    	end
+
+    	it 'should have right flash' do
+    		post :create, :user => @attr
+    		flash[:success].should =~/welcome to the sample app/i
+        end
+    end
+  end
 end
